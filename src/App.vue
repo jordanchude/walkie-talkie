@@ -10,8 +10,14 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+// import { auth } from './components/firebase'
+import { auth } from './components/firebase'
+
+console.log(auth);
 
 export default {
+
+
   name: 'App',
   components: {
     
