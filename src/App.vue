@@ -5,6 +5,8 @@
       <h1>Vue Voxer</h1>
       <p>Real-time voice chat</p>
     </header>
+
+    <router-view></router-view>
   </div>
 </template>
 
