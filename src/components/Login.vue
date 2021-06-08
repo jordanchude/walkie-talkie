@@ -17,6 +17,7 @@
 
         <div v-else>
             <h3>Sign in with Email</h3>
+            <a href="#" @click="forgotPassword()">Forgot Password?</a><br>
             <a href="#" @click="newUser = true">New User?</a>
         </div>
 
@@ -24,7 +25,7 @@
             {{ newUser ? 'Sign Up' : 'Login'}}
         </button>
 
-        <p class="has-text-danger" v-if="errorMessage">{{ errorMessage }}</p>
+        <p class="has-text-danger" v-if="errorMessage"> {{ errorMessage }} </p>
     </aside>
 </template>
 
@@ -46,7 +47,7 @@ export default {
 
     methods: {
         async signInOrCreateUser() {
-            // this.loading = true;
+            this.loading = true;
             this.errorMessage = '';
 
             try {
@@ -56,17 +57,22 @@ export default {
 
                 // IF NOT, SIGN INTO ACCOUNT
                 } else {
-                    auth.signInWithEmailAndPassword(this.email, this.password);
+                    await auth.signInWithEmailAndPassword(this.email, this.password);
                 }
             } catch (error) {
-                // troubleshoot why error message isn't coming up
                 this.errorMessage = error.message;
-                // console.log(error);
             }
 
             this.loading = false;
+        },
+        async forgotPassword() {
+            try {
+                await auth.sendPasswordResetEmail(this.email)
+            } catch(error) {
+                this.errorMessage = error.message;
+            }
         }
-    },
+    }
 }
 
 </script>
