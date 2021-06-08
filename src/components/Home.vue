@@ -4,9 +4,11 @@
         <User v-slot:user="{ user }">
 
             <div v-if="user">
-                <!-- <p>Logged-in as {{user.uid}} </p> -->
+                <p>Logged-in as {{user.uid}} </p>
+
                 <!-- PASS USER STATE AS PROP -->
                 <UserProfile :user="user"/> 
+                <ChatList :uid="user.uid"/>
             </div>
             <Login v-else/>
 
@@ -15,17 +17,19 @@
 </template>
 
 <script>
-// IMPORT LOGIN COMPONENT
+// COMPONENTS
 import Login from './Login'
 import User from './User.vue'
 import UserProfile from './UserProfile'
+import ChatList from './ChatList.vue'
 
 // REGISTERING COMPONENTS
 export default {
     components: {
         Login,
         User,
-        UserProfile
+        UserProfile,
+        ChatList
     }
 }
 

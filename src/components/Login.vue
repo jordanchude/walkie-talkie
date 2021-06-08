@@ -4,8 +4,9 @@
         <button @click="auth.signInAnonymously()">Sign in</button>
 
         <!-- FORM -->
+        <!-- ADD MORE FORM VALIDATION? -->
         <label for="email">Email</label><br>
-        <input type="email" placeholder="email" v-model="email" class="input">
+        <input type="email" placeholder="email" v-model="email" class="input" required>
 
         <label for="password"></label>
         <input type="password" placeholder="password" v-model="password" class="input">
