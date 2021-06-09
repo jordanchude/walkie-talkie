@@ -3,13 +3,13 @@
 
     <ul>
         <li v-for="chat of chats" :key="chat.id">
-            {{ chat.id }}
+            <!-- LINK TO CHAT WITH CHAT ID PARAMETER -->
+            <router-link :to="{ name: 'chat', params: { id: chat.id } }">{{ chat.id }}</router-link>
         </li>
     </ul>
 
 
     <button @click="createChatRoom()">Create Chat Room</button>
-
 
     </div>
 </template>
