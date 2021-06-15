@@ -3,10 +3,11 @@
         <h3>Welcome to Chatroom {{ chatId }} </h3>
         <!-- TROUBLESHOOT WHY MESSAGES DON'T APPEAR -->
         <User #user = "{ user }">
-            <ul>
-                <li v-for="message of messages" :key="message.id">
-                    {{ messages.id }}
-                </li>
+            <div v-if="user">
+                <ul>
+                    <li v-for="message of messages" :key="message.id">
+                        {{ message.text }}
+                    </li>
             </ul>
 
             <input v-model="newMessageText" class="input"/>
@@ -18,31 +19,39 @@
                 @click="addMessage(user.uid)">
                 Send
             </button>
+            </div>
+
+            <Login v-else/>
         </User>
     </main>
 </template>
 
 <script>
 import User from './User.vue'
-import { db } from './firebase'
+import Login from './Login.vue'
+import { db, storage } from './firebase'
 
 export default {
     components: {
         User,
+        Login
     },
     data() {
         return {
             newMessageText: '',
-            loading: false
+            loading: false,
+            messages: []
         }
     },
     computed: {
         chatId() {
+            console.log(storage)
             return this.$route.params.id;
         },
         messagesCollection() {
             return db.doc(`chats/${this.chatId}`).collection('messages');
         },
+        // look here for error
         firestore() {
             return {
                 messages: this.messagesCollection.orderBy('createdAt').limitToLast(10)
@@ -63,6 +72,7 @@ export default {
                 sender: uid,
                 createdAt: Date.now()
             })
+
 
             this.loading = false,
             this.newMessageText = ''
