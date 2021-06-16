@@ -29,14 +29,14 @@
 <script>
 import User from './User.vue'
 import Login from './Login.vue'
-import { db, storage } from './firebase'
+import { db } from './firebase'
 
 export default {
     components: {
         User,
         Login
     },
-    data() {
+    data() { 
         return {
             newMessageText: '',
             loading: false,
@@ -45,18 +45,16 @@ export default {
     },
     computed: {
         chatId() {
-            console.log(storage)
             return this.$route.params.id;
         },
         messagesCollection() {
             return db.doc(`chats/${this.chatId}`).collection('messages');
         },
-        // look here for error
-        firestore() {
+    },
+    firestore() {
             return {
                 messages: this.messagesCollection.orderBy('createdAt').limitToLast(10)
             }
-        }
     },
     methods: {
         async addMessage(uid) {
