@@ -15,6 +15,15 @@
 
             <input v-model="newMessageText" class="input"/>
 
+            <hr>
+
+            <h5>Record Audio</h5> 
+
+            <button v-if="!recorder" @click="record()"> </button>
+            <button v-else @click="stop()"></button>
+
+            <audio v-if="newAudio" :src="newAudioURL" controls></audio>
+
             <button
                 :disabled ="!newMessageText || loading"
                 class="button is-success"
@@ -45,7 +54,9 @@ export default {
         return {
             newMessageText: '',
             loading: false,
-            messages: []
+            messages: [],
+            newAudio: null,
+            recorder: null
         }
     },
     computed: {
@@ -55,6 +66,9 @@ export default {
         messagesCollection() {
             return db.doc(`chats/${this.chatId}`).collection('messages');
         },
+        newAudioURL() {
+            return URL.createObjectURL(this.newAudio);
+        }
     },
     firestore() {
             return {
@@ -79,7 +93,23 @@ export default {
 
             this.loading = false,
             this.newMessageText = ''
-        }
+        },
+        async record() {
+            this.newAudio = null;
+
+            // ASK FOR USER PERMISSION TO RECORD AUDIO
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: false
+            });
+
+            // RECORD AUDIO
+            const options = { mimeType: "audio/webm"};
+            const recordedChunks = [];
+            this.recorder = new MediaRecorder(stream, options);
+
+            
+        },
     }
 }
 
@@ -96,5 +126,9 @@ export default {
         background: #efefef;
         padding: 10px;
         border-radius: 0;
+    }
+
+    li {
+        display: flex;
     }
 </style>
