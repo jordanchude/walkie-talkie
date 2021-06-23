@@ -19,8 +19,8 @@
 
             <h5>Record Audio</h5> 
 
-            <button v-if="!recorder" @click="record()"> </button>
-            <button v-else @click="stop()"></button>
+            <button v-if="!recorder" @click="record()">Record</button>
+            <button v-else @click="stop()">Stop</button>
 
             <audio v-if="newAudio" :src="newAudioURL" controls></audio>
 
@@ -41,7 +41,7 @@
 <script>
 import User from './User.vue'
 import Login from './Login.vue'
-import { db } from './firebase'
+import { db, storage } from './firebase'
 import ChatMessage from './ChatMessage.vue'
 
 export default {
@@ -56,7 +56,8 @@ export default {
             loading: false,
             messages: [],
             newAudio: null,
-            recorder: null
+            recorder: null,
+            audioURL: null
         }
     },
     computed: {
@@ -80,19 +81,34 @@ export default {
 
             this.loading = true;
 
+            this.audioURL = null;
+
             // GENERATE RANDOM MESSAGE ID
             const { id: messageId } = this.messagesCollection.doc();
+
+            if (this.newAudio) {
+                const storageRef = storage
+                .ref('chats')
+                .child(this.chatId)
+                .child(`${messageId}.wav`);
+
+                await storageRef.put(this.newAudio).on();
+
+                this.audioURL = await storageRef.getDownloadURL();
+            }
             
             // SET MESSAGE IN DATABASE
             await this.messagesCollection.doc(messageId).set({
                 text: this.newMessageText,
                 sender: uid,
-                createdAt: Date.now()
+                createdAt: Date.now(),
+                audioURL: this.audioURL
             })
 
 
             this.loading = false,
             this.newMessageText = ''
+            this.newAudio = null;
         },
         async record() {
             this.newAudio = null;
@@ -108,8 +124,25 @@ export default {
             const recordedChunks = [];
             this.recorder = new MediaRecorder(stream, options);
 
-            
+            // EVENT LISTENER TO LOOK FOR DATA
+            this.recorder.addEventListener("dataavailable", e => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            });
+
+            // EVENT LISTENER TO CREATE BLOB ONCE RECORDING STOPS
+            this.recorder.addEventListener("stop", () => {
+                this.newAudio = new Blob(recordedChunks);
+                console.log(this.newAudio);
+            })
+
+            this.recorder.stop();
         },
+        async stop() {
+            this.recorder.stop();
+            this.recorder = null;
+        }
     }
 }
 
