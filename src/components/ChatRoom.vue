@@ -120,9 +120,11 @@ export default {
             });
 
             // RECORD AUDIO
+            // *check here for errors*
             const options = { mimeType: "audio/webm"};
             const recordedChunks = [];
             this.recorder = new MediaRecorder(stream, options);
+            this.recorder.start();
 
             // EVENT LISTENER TO LOOK FOR DATA
             this.recorder.addEventListener("dataavailable", e => {
