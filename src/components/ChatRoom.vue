@@ -1,7 +1,6 @@
 <template>
     <main>
         <h3>Welcome to Chatroom {{ chatId }} </h3>
-        <!-- TROUBLESHOOT WHY MESSAGES DON'T APPEAR -->
         <User #user = "{ user }">
             <div v-if="user">
                 <ul>
@@ -124,7 +123,6 @@ export default {
             const options = { mimeType: "audio/webm"};
             const recordedChunks = [];
             this.recorder = new MediaRecorder(stream, options);
-            this.recorder.start();
 
             // EVENT LISTENER TO LOOK FOR DATA
             this.recorder.addEventListener("dataavailable", e => {
@@ -136,10 +134,9 @@ export default {
             // EVENT LISTENER TO CREATE BLOB ONCE RECORDING STOPS
             this.recorder.addEventListener("stop", () => {
                 this.newAudio = new Blob(recordedChunks);
-                console.log(this.newAudio);
             })
-
-            this.recorder.stop();
+    
+            this.recorder.start();
         },
         async stop() {
             this.recorder.stop();
