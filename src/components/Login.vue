@@ -1,8 +1,5 @@
 <template>
     <aside>
-        <h3>Sign in anonymously</h3>
-        <button @click="auth.signInAnonymously()">Sign in</button>
-
         <!-- FORM -->
         <!-- ADD MORE FORM VALIDATION? -->
         <label for="email">Email</label><br>
