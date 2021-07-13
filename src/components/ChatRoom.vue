@@ -90,9 +90,10 @@ export default {
                 .ref('chats')
                 .child(this.chatId)
                 .child(`${messageId}.wav`);
+                console.log(storageRef);
 
-                await storageRef.put(this.newAudio).on();
-
+                await storageRef.put(this.newAudio);
+            
                 this.audioURL = await storageRef.getDownloadURL();
             }
             
@@ -119,7 +120,6 @@ export default {
             });
 
             // RECORD AUDIO
-            // *check here for errors*
             const options = { mimeType: "audio/webm"};
             const recordedChunks = [];
             this.recorder = new MediaRecorder(stream, options);
@@ -135,7 +135,7 @@ export default {
             this.recorder.addEventListener("stop", () => {
                 this.newAudio = new Blob(recordedChunks);
             })
-    
+
             this.recorder.start();
         },
         async stop() {
