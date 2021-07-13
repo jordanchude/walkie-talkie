@@ -30,7 +30,7 @@ export default {
     firestore() {
         return {
             // QUERY CHATS WHERE OWNER IS EQUAL TO CURRENT OWNER
-            chats: db.collection('chats').where('owner', '==', this.uid)
+            chats: db.collection('chats')
         }
     },
     methods: {
