@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+###  UI Inspiration
+[Music Chat](https://uigarage.net/music-chat-by-spotify-community/)
