@@ -1,8 +1,8 @@
 <template>
     <div>
         <h3>Home</h3>
-        <User v-slot:user="{ user }">
-            <template>
+        <User>
+            <template v-slot:user="{ user }">
             <div v-if="user">
                 <p>Logged-in as {{user.uid}} </p>
 

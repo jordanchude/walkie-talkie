@@ -1,7 +1,8 @@
 <template>
     <main>
         <h3>Welcome to Chatroom {{ chatId }} </h3>
-        <User #user = "{ user }">
+        <User>
+            <template>
             <div v-if="user">
                 <ul>
                     <li v-for="message of messages" :key="message.id">
