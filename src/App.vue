@@ -13,8 +13,6 @@
 <script>
 import { auth } from './components/firebase'
 
-console.log(auth);
-
 export default {
 
 
