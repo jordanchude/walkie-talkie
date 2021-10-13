@@ -57,27 +57,15 @@ For our unit03 project, we are creating a clone of the popular productivity app 
 
 ## Time/Priority Matrix 
 
-- [MVP](https://res.cloudinary.com/dpjdvsigb/image/upload/v1598750069/project-3-assets/frontend-mvp_bvlg7s.jpg)
-- [PostMVP](https://res.cloudinary.com/dpjdvsigb/image/upload/v1598750382/project-3-assets/frontend-post-mvp_plwllb.jpg)
+-
 
 ### MVP/PostMVP - 5min
 
 #### MVP
-- Create function to request data and populate for all pages
-- Create function to create new data for all pages
-- Create function to delete data for all pages
-- Create function to edit data on all pages
-- Build UI incorporating functions with Vue
-- Make hamburger menu
-- Make it responsive to different screen sizes (mobile, tablet, and desktop)
-- Render API on frontend application
+- 
 
 #### PostMVP 
-- Make hover effect
-- Add social media icons
-- Add button shadow effects
-- Change fonts
-
+- 
 
 ## Functional Components
 
@@ -139,8 +127,6 @@ For our unit03 project, we are creating a clone of the popular productivity app 
 
 ## Additional Libraries
 - [Vue](https://vuejs.org)
-- [Bootstrap](https://getbootstrap.com/)
-- [jQuery](https://jquery.com/)
 
 ## Code Snippets
 
@@ -155,71 +141,10 @@ For our unit03 project, we are creating a clone of the popular productivity app 
 <a href="#" class="closepop"></a>
 ```
 
-### Update List Function
-- The update list function updates the server with user submitted list changes and reflects those changes on the frontend of the application.
-
-```
-updateList: function(e){
-        this.listID = e.target.id
-        const URL = this.prodURL ? this.prodURL : this.devURL
-        const updateList = {board_name: this.updateListName}
-        fetch(`${URL}/boards/${this.boardID}/list/${this.listID}`, { //fetching is how we gather data from our server so this needs to be the correct route to get the correct data 
-            method: "put",
-            headers: {
-                "Content-Type" : "application/json",
-                Authorization: `bearer ${this.token}`
-            },
-                body:JSON.stringify(updateList)
-        })
-        .then(response => {
-            this.showList();
-            })
-        }
-```
-
-#### Drag and Drop Functions
-- In order to do a drag and drop, two things were needed. The first thing was the action of dragging and dropping, and the second thing was updating the items table in the database when the item is dropped to another list. To create the appearance of drag and drop, the event listeners of ondragstart, ondrag, and ondrop, and event.preventDefault() were used on the frontend. In order to update the database, DELETE and POST HTTP requests were made to the server. The previous ids of the list and item being dragged were obtained from the div CSS selector ids of the list and item. These ids were used to make the DELETE request, When the item is dropped to the new list, the CSS selector id of the div for the new list is used to make the POST request. Since making a POST request means making a whole new item with the same content, the drag and drop function does not account for the position the user drags to. The item being dragged will only be dropped to the last position of the list. In future implementation of Tello, the drag and drop feature will be improved to take in consideration of the desired position the user wants to drag to.
-```
-         dragItem: function(event){
-            this.dragItemID = event.target.getAttribute('id2')
-            this.dragItemListID = event.target.id
-            this.dragItemContent = event.target.firstChild.firstChild.innerHTML || event.target.firstChild.innerHTML
-        },
-        allowDrop: function(event){
-            event.preventDefault();
-            event.stopPropagation();
-        },
-        dropItem: function(event){
-            event.preventDefault()
-            event.stopPropagation();
-            const URL = this.prodURL ? this.prodURL : this.devURL
-            const draggingItem = {item_name: this.dragItemContent}
-            fetch(`${URL}/boards/${this.boardID}/lists/${event.target.getAttribute('listID')}/items`, {
-                // e.target will be the container that the item is dropped in
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `bearer ${this.token}`
-                },
-                body: JSON.stringify(draggingItem)
-            })
-            .then (response => response.json)
-            .then (data => {
-                fetch(`${URL}/boards/${this.boardID}/lists/${this.dragItemListID}/items/${this.dragItemID}`, {
-                    method: "delete",
-                    headers: {
-                        Authorization: `bearer ${this.token}`
-                    }
-                })
-                .then (response => response.json)
-                .then(data => {
-                    this.showItems()
-                })
-            })
-        }
-```
+### Function Highlight
 
 ## Issues and Resolutions
 
-**ERROR**: When we first implemented the code, everything on the page was highlighted when a modal popup is displayed.                    
-**RESOLUTION**: Once we moved the related divs below footer, it solved the problem. It was a simple solution but took some time to figure it out.
+**ERROR**: 
+
+**RESOLUTION**: 
