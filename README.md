@@ -51,12 +51,7 @@ For our unit03 project, we are creating a clone of the popular productivity app 
 
 ## Wireframes
 
-- [mobile-menu](https://res.cloudinary.com/g31ssa/image/upload/v1598214452/Mobile%20Menu.png)
-- [mobile-board](https://res.cloudinary.com/g31ssa/image/upload/v1598214510/Mobile%20Boards.png)
-- [mobile-list](https://res.cloudinary.com/g31ssa/image/upload/v1598214545/MObile%20List.png)
-- [tablet/desktop-menu](https://res.cloudinary.com/g31ssa/image/upload/v1598214576/Tablet%20and%20Web%20Main%20page.png)
-- [tablet/desktop-board](https://res.cloudinary.com/g31ssa/image/upload/v1598214781/boards.png)
-- [tablet/desktop-list](https://res.cloudinary.com/g31ssa/image/upload/v1598214753/lists.png)
+- [mobile-login](https://www.figma.com/file/Y5Vjqyl77ThI2BUjBwOlxb/Wireframes?node-id=0%3A1)
 
 
 
